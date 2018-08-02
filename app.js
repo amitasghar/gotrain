@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var config = require('./config.json');
 
 var indexRouter = require('./routes/index');
 var trainRouter = require('./routes/train');
@@ -13,10 +14,10 @@ var mysql = require("mysql");
 //Database connection
 app.use(function(req, res, next){
 	res.locals.connection = mysql.createConnection({
-		host     : 'secret',
-		user     : 'secret',
-		password : 'secret',
-		database : 'secret'
+		host     : config.dbhost,
+		user     : config.dbuser,
+		password : config.dbpassword,
+		database : config.dbname
 	});
 	res.locals.connection.connect();
 	next();
